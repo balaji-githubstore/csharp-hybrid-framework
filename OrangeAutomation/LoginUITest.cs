@@ -16,5 +16,15 @@ namespace Fujitsu.OrangeAutomation
         {
             Assert.That(driver.Title, Is.EqualTo("OrangeHRM"));
         }
+
+        [Test]
+        public void VerifyUsernameAndPasswordPlaceholderTest()
+        {
+            string actualUsernamePlaceholder = driver.FindElement(By.Name("username")).GetAttribute("placeholder");
+            string actualPasswordPlaceholder = driver.FindElement(By.CssSelector("[name='password']")).GetAttribute("placeholder");
+
+            Assert.That(actualUsernamePlaceholder, Is.EqualTo("Username"));
+            Assert.That(actualPasswordPlaceholder, Is.EqualTo("Password"));
+        }
     }
 }

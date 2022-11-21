@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Fujitsu.OrangeAutomation.Base;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -9,25 +10,8 @@ using System.Threading.Tasks;
 
 namespace Fujitsu.OrangeAutomation
 {
-    public class LoginTest
+    public class LoginTest : AutomationWrapper
     {
-        IWebDriver driver;
-
-        [SetUp]
-        public void BeforeTest()
-        {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-            driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/web/index.php/");
-        }
-
-        [TearDown]
-        public void AfterTest()
-        {
-            driver.Quit();
-        }
-
         [Test]
         public void ValidLoginTest()
         {

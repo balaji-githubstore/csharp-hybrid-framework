@@ -14,16 +14,23 @@ namespace Fujitsu.OrangeAutomation
         public void AddValidEmployeeTest()
         {
             driver.FindElement(By.Name("username")).SendKeys("admin");
-            driver.FindElement(By.CssSelector("[name='password']")).SendKeys("Admin123");
+            driver.FindElement(By.CssSelector("[name='password']")).SendKeys("admin123");
             driver.FindElement(By.XPath("//button[normalize-space()='Login']")).Click();
-            //click on PIM 
-            //click on Add Employee
-            //enter firstname as John
-            //enter middlename as K 
-            //enter lastame as wick
-            //click on save
+            
+            driver.FindElement(By.XPath("//span[text()='PIM']")).Click();
+            driver.FindElement(By.LinkText("Add Employee")).Click();
 
-            //assert the added name shown in header
+            driver.FindElement(By.Name("firstName")).SendKeys("John");
+            driver.FindElement(By.Name("middleName")).SendKeys("W");
+            driver.FindElement(By.Name("lastName")).SendKeys("Wick");
+
+            driver.FindElement(By.XPath("//button[normalize-space()='Save']")).Click();
+
+            //not recommeded//need to update with fluent wait
+            Thread.Sleep(8000);
+
+            string actualAddedName = driver.FindElement(By.XPath("//div[@class='orangehrm-edit-employee-name']//h6")).Text;
+            Assert.That(actualAddedName, Is.EqualTo("John Wick"));
         }
     }
 }

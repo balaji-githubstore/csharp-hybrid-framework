@@ -13,10 +13,11 @@ namespace Fujitsu.OrangeAutomation
     public class LoginTest : AutomationWrapper
     {
         [Test]
-        public void ValidLoginTest()
+        [TestCase("Admin","admin123", "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")]
+        public void ValidLoginTest(string username,string password,string expectedUrl)
         {
-            driver.FindElement(By.Name("username")).SendKeys("Admin");
-            driver.FindElement(By.CssSelector("[name='password']")).SendKeys("admin123");
+            driver.FindElement(By.Name("username")).SendKeys(username);
+            driver.FindElement(By.CssSelector("[name='password']")).SendKeys(password);
             driver.FindElement(By.XPath("//button[normalize-space()='Login']")).Click();
 
             //wait for page load 
@@ -24,19 +25,21 @@ namespace Fujitsu.OrangeAutomation
             //get the url and assert it
             string actualUrl = driver.Url;
             Assert.That(actualUrl,
-                Is.EqualTo("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"));
+                Is.EqualTo(expectedUrl));
         }
 
         [Test]
-        public void InvalidLoginTest()
+        [TestCase("saul","saul123","Invalid credentials")]
+        [TestCase("kim", "kim123", "Invalid credentials")]
+        [TestCase("bala", "bala123", "Invalid credentials")]
+        public void InvalidLoginTest(string username,string password,string expectedError)
         {
-            driver.FindElement(By.Name("username")).SendKeys("john");
-            driver.FindElement(By.CssSelector("[name='password']")).SendKeys("john123");
+            driver.FindElement(By.Name("username")).SendKeys(username);
+            driver.FindElement(By.CssSelector("[name='password']")).SendKeys(password);
             driver.FindElement(By.XPath("//button[normalize-space()='Login']")).Click();
 
-            //assert the error message - Invalid credentials
             string actualError = driver.FindElement(By.XPath("//p[contains(@class,'oxd-alert')]")).Text;
-            Assert.That(actualError, Is.EqualTo("Invalid credentials"));
+            Assert.That(actualError, Is.EqualTo(expectedError));
         }
     }
 }

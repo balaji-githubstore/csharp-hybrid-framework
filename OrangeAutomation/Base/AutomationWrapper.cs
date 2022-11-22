@@ -11,7 +11,7 @@ namespace Fujitsu.OrangeAutomation.Base
     public class AutomationWrapper
     {
         protected IWebDriver driver;
-
+        
         [SetUp]
         public void BeforeTest()
         {

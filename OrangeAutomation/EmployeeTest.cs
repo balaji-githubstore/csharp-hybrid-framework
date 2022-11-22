@@ -1,4 +1,5 @@
 ﻿using Fujitsu.OrangeAutomation.Base;
+using Fujitsu.OrangeAutomation.Utilities;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -11,32 +12,7 @@ namespace Fujitsu.OrangeAutomation
     public class EmployeeTest : AutomationWrapper
     {
 
-        public static object[] AddValidEmployeeData()
-        {
-            string[] dataSet1 = new string[6];
-            dataSet1[0] = "admin";
-            dataSet1[1] = "admin123";
-            dataSet1[2] = "John";
-            dataSet1[3] = "L";
-            dataSet1[4] = "Wick";
-            dataSet1[5] = "John Wick";
-
-            string[] dataSet2 = new string[6];
-            dataSet2[0] = "admin";
-            dataSet2[1] = "admin123";
-            dataSet2[2] = "Paul";
-            dataSet2[3] = "k";
-            dataSet2[4] = "Peter";
-            dataSet2[5] = "Paul Peter";
-
-            object[] allDataSet = new object[2];
-            allDataSet[0] = dataSet1;
-            allDataSet[1] = dataSet2;
-
-            return allDataSet;
-        }
-
-        [Test,TestCaseSource(typeof(EmployeeTest),nameof(AddValidEmployeeData))]
+        [Test,TestCaseSource(typeof(DataUtils),nameof(DataUtils.AddValidEmployeeData))]
         public void AddValidEmployeeTest(string username,string password,string firstname,string middlename,string lastname
             ,string expectedName)
         {
@@ -57,7 +33,7 @@ namespace Fujitsu.OrangeAutomation
             Thread.Sleep(8000);
 
             string actualAddedName = driver.FindElement(By.XPath("//div[@class='orangehrm-edit-employee-name']//h6")).Text;
-            Assert.That(actualAddedName, Is.EqualTo(expectedName));
+            Assert.That(actualAddedName.ToLower(), Is.EqualTo(expectedName.ToLower()));
         }
     }
 }

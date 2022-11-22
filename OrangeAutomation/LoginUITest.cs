@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fujitsu.OrangeAutomation.Base;
+using OpenQA.Selenium.Edge;
 
 namespace Fujitsu.OrangeAutomation
 {

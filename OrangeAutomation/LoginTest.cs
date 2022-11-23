@@ -1,4 +1,5 @@
 ﻿using Fujitsu.OrangeAutomation.Base;
+using Fujitsu.OrangeAutomation.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -12,8 +13,14 @@ namespace Fujitsu.OrangeAutomation
 {
     public class LoginTest : AutomationWrapper
     {
-        [Test]
-        [TestCase("Admin","admin123", "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")]
+        /// <summary>
+        /// Test the valid login 
+        /// </summary>
+        /// <param name="username">pass valid username</param>
+        /// <param name="password">pass valid password</param>
+        /// <param name="expectedUrl">expected url after successful login</param>
+        [Test, TestCaseSource(typeof(DataUtils), nameof(DataUtils.ValidLoginData))]
+        // [TestCase("Admin","admin123", "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")]
         public void ValidLoginTest(string username,string password,string expectedUrl)
         {
             driver.FindElement(By.Name("username")).SendKeys(username);
@@ -28,10 +35,10 @@ namespace Fujitsu.OrangeAutomation
                 Is.EqualTo(expectedUrl));
         }
 
-        [Test]
-        [TestCase("saul","saul123","Invalid credentials")]
-        [TestCase("kim", "kim123", "Invalid credentials")]
-        [TestCase("bala", "bala123", "Invalid credentials")]
+        [Test, TestCaseSource(typeof(DataUtils), nameof(DataUtils.InvalidLoginData))]
+        //[TestCase("saul","saul123","Invalid credentials")]
+        //[TestCase("kim", "kim123", "Invalid credentials")]
+        //[TestCase("bala", "bala123", "Invalid credentials")]
         public void InvalidLoginTest(string username,string password,string expectedError)
         {
             driver.FindElement(By.Name("username")).SendKeys(username);

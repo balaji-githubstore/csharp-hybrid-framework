@@ -6,9 +6,35 @@ using System.Threading.Tasks;
 
 namespace Fujitsu.OrangeAutomation.Utilities
 {
+    /// <summary>
+    /// All TestCase Source will be kept in this class
+    /// </summary>
     public class DataUtils
     {
-        //supply test data to AddValidEmployeeTest in EmployeeTest class
+        public static object[] ValidLoginData()
+        {
+            object[] allDataSet = ExcelUtils.GetSheetIntoObjectArray
+                ("C:\\automation_work\\HybridFrameworkSln\\OrangeAutomation\\TestData\\orangehrm_data.xlsx", "ValidLoginTest");
+
+            return allDataSet;
+        }
+
+        /// <summary>
+        /// supply test data to InvalidLoginTest in LoginTest class
+        /// </summary>
+        /// <returns>object[]</returns>
+        public static object[] InvalidLoginData()
+        {
+            object[] allDataSet=ExcelUtils.GetSheetIntoObjectArray
+                ("C:\\automation_work\\HybridFrameworkSln\\OrangeAutomation\\TestData\\orangehrm_data.xlsx", "InvalidLoginTest");
+
+            return allDataSet;
+        }
+
+        /// <summary>
+        /// supply test data to AddValidEmployeeTest in EmployeeTest class
+        /// </summary>
+        /// <returns>object[]</returns>
         public static object[] AddValidEmployeeData()
         {
             string[] dataSet1 = new string[6];

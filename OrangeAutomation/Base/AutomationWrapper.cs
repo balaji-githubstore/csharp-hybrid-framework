@@ -20,7 +20,7 @@ namespace Fujitsu.OrangeAutomation.Base
         public void BeforeTest()
         {
             string browserName = "ch";
-
+            
             if(browserName.ToLower().Equals("edge"))
             {
                 driver = new EdgeDriver();

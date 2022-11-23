@@ -9,6 +9,12 @@ namespace Fujitsu.OrangeAutomation.Utilities
 {
     public class ExcelUtils
     {
+        /// <summary>
+        /// Can be used in any application - converts sheet into object[]
+        /// </summary>
+        /// <param name="file">excel path</param>
+        /// <param name="sheetname">TestMethodName as sheetname</param>
+        /// <returns>object[]</returns>
         public static object[] GetSheetIntoObjectArray(string file, string sheetname)
         {
             using (XLWorkbook book = new XLWorkbook(file))

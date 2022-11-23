@@ -1,6 +1,7 @@
 ﻿using Fujitsu.OrangeAutomation.Base;
 using Fujitsu.OrangeAutomation.Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,12 @@ namespace Fujitsu.OrangeAutomation
 
             //not recommeded//need to update with fluent wait
             Thread.Sleep(8000);
+
+            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
+            wait.IgnoreExceptionTypes(typeof(Exception));
+            wait.Timeout = TimeSpan.FromSeconds(20);
+
+            //wait.Until(x => x.FindElement(By.XPath("//div[@class='orangehrm-edit-employee-name']//h6")).Text == "");
 
             string actualAddedName = driver.FindElement(By.XPath("//div[@class='orangehrm-edit-employee-name']//h6")).Text;
             Assert.That(actualAddedName.ToLower(), Is.EqualTo(expectedName.ToLower()));

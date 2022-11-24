@@ -10,6 +10,8 @@ namespace Fujitsu.OrangeAutomation.Pages
 {
     public class PIMPage
     {
+        private By _addEmployeeLocator = By.LinkText("Add Employee");
+
         private IWebDriver _driver;
 
         public PIMPage(IWebDriver driver)
@@ -19,7 +21,7 @@ namespace Fujitsu.OrangeAutomation.Pages
 
         public void ClickOnAddEmployee()
         {
-            driver.FindElement(By.LinkText("Add Employee")).Click();
+            _driver.FindElement(_addEmployeeLocator).Click();
         }
     }
 }

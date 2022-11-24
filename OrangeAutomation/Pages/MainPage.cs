@@ -10,6 +10,8 @@ namespace Fujitsu.OrangeAutomation.Pages
 {
     public class MainPage
     {
+        private By _pimLocator = By.XPath("//span[text()='PIM']");
+
         private IWebDriver _driver;
 
         public MainPage(IWebDriver driver)
@@ -24,7 +26,7 @@ namespace Fujitsu.OrangeAutomation.Pages
 
         public void ClickOnPIMMenu()
         {
-            _driver.FindElement(By.XPath("//span[text()='PIM']")).Click();
+            _driver.FindElement(_pimLocator).Click();
         }
     }
 }

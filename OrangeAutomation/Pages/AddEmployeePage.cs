@@ -10,15 +10,16 @@ namespace Fujitsu.OrangeAutomation.Pages
 {
     public class AddEmployeePage
     {
-        private IWebDriver _driver;
+        private By _firstnameLocator = By.Name("firstName");
 
+        private IWebDriver _driver;
         public AddEmployeePage(IWebDriver driver)
         {
             _driver = driver;
         }
         public void EnterFirstName(string firstname)
         {
-            _driver.FindElement(By.Name("firstName")).SendKeys(firstname);
+            _driver.FindElement(_firstnameLocator).SendKeys(firstname);
         }
     }
 }

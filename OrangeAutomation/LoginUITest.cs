@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fujitsu.OrangeAutomation.Base;
 using OpenQA.Selenium.Edge;
+using Fujitsu.OrangeAutomation.Pages;
 
 namespace Fujitsu.OrangeAutomation
 {
@@ -21,13 +22,15 @@ namespace Fujitsu.OrangeAutomation
         [Test]
         public void VerifyUsernameAndPasswordPlaceholderTest()
         {
-            string actualUsernamePlaceholder = driver.FindElement(By.Name("username")).GetAttribute("placeholder");
-            string actualPasswordPlaceholder = driver.FindElement(By.CssSelector("[name='password']")).GetAttribute("placeholder");
+            LoginPage loginPage = new LoginPage(driver);
+
+            string actualUsernamePlaceholder = loginPage.GetUsernamePlaceholder();
+            //string actualPasswordPlaceholder = driver.FindElement(By.CssSelector("[name='password']")).GetAttribute("placeholder");
 
             Assert.Multiple(() =>
             {
                 Assert.That(actualUsernamePlaceholder, Is.EqualTo("Username"));
-                Assert.That(actualPasswordPlaceholder, Is.EqualTo("Password"));
+                Assert.That(loginPage.GetPasswordPlaceholder(), Is.EqualTo("Password"));
             }
             );
         }

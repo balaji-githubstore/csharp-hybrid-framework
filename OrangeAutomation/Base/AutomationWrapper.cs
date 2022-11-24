@@ -12,6 +12,7 @@ using AventStack.ExtentReports;
 using NUnit.Framework.Interfaces;
 using DocumentFormat.OpenXml.InkML;
 using System.Diagnostics;
+using OpenQA.Selenium.Support.Extensions;
 
 namespace Fujitsu.OrangeAutomation.Base
 {
@@ -20,6 +21,7 @@ namespace Fujitsu.OrangeAutomation.Base
         protected IWebDriver driver;
         private static ExtentReports extent;
         protected static ExtentTest test;
+        protected static string projectPath;
 
         // protected IWebDriver Driver { get { return _driver; } }
 
@@ -29,7 +31,7 @@ namespace Fujitsu.OrangeAutomation.Base
         
            if (extent == null) {
 
-                string projectPath = Directory.GetCurrentDirectory();
+                 projectPath = Directory.GetCurrentDirectory();
                 projectPath = projectPath.Remove(projectPath.IndexOf("bin"));
 
                 ExtentHtmlReporter reporter = new ExtentHtmlReporter(projectPath+@"Reports\index.html");
@@ -93,9 +95,22 @@ namespace Fujitsu.OrangeAutomation.Base
             {
                 test.Log(Status.Skip, "MyFirstTestCasePassed");
             }
-            
 
+            Screenshot screenshot = driver.TakeScreenshot();
+            string base64=screenshot.AsBase64EncodedString;
+
+            test.AddScreenCaptureFromBase64String(base64);
+
+            //SaveScreenShot(TestContext.CurrentContext.Test.MethodName);
             driver.Quit();
+        }
+
+        public void SaveScreenShot(string screenshotName)
+        {
+            screenshotName = screenshotName+"_" + DateTime.Now.ToString().Replace(":","-")+".png";
+
+            Screenshot screenshot = driver.TakeScreenshot();
+            screenshot.SaveAsFile(projectPath+ @"Screenshots\"+ screenshotName);
         }
     }
 }

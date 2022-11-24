@@ -8,23 +8,18 @@ using System.Threading.Tasks;
 
 namespace Fujitsu.OrangeAutomation.Pages
 {
-    public class MainPage
+    public class PIMPage
     {
         private IWebDriver _driver;
 
-        public MainPage(IWebDriver driver)
+        public PIMPage(IWebDriver driver)
         {
             _driver = driver;
         }
 
-        public string GetMainPageURL()
+        public void ClickOnAddEmployee()
         {
-            return _driver.Url;
-        }
-
-        public void ClickOnPIMMenu()
-        {
-            _driver.FindElement(By.XPath("//span[text()='PIM']")).Click();
+            driver.FindElement(By.LinkText("Add Employee")).Click();
         }
     }
 }

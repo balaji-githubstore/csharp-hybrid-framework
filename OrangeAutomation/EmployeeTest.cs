@@ -30,13 +30,18 @@ namespace Fujitsu.OrangeAutomation
             loginPage.ClickOnLogin();
             test.Log(Status.Info, "Clicked On login");
 
-            driver.FindElement(By.XPath("//span[text()='PIM']")).Click();
+            MainPage mainPage = new MainPage(driver);
+
+            mainPage.ClickOnPIMMenu();
             test.Log(Status.Info, "Clicked On PIM");
 
-            driver.FindElement(By.LinkText("Add Employee")).Click();
+            PIMPage pimPage = new PIMPage(driver);
+            pimPage.ClickOnAddEmployee();
             test.Log(Status.Info, "Clicked On Add Employee");
 
-            driver.FindElement(By.Name("firstName")).SendKeys(firstname);
+            AddEmployeePage addEmployeePage = new AddEmployeePage(driver);
+
+            addEmployeePage.EnterFirstName(firstname);
             test.Log(Status.Info, "Enter firstName: " + firstname);
 
             driver.FindElement(By.Name("middleName")).SendKeys(middlename);

@@ -8,23 +8,17 @@ using System.Threading.Tasks;
 
 namespace Fujitsu.OrangeAutomation.Pages
 {
-    public class MainPage
+    public class AddEmployeePage
     {
         private IWebDriver _driver;
 
-        public MainPage(IWebDriver driver)
+        public AddEmployeePage(IWebDriver driver)
         {
             _driver = driver;
         }
-
-        public string GetMainPageURL()
+        public void EnterFirstName(string firstname)
         {
-            return _driver.Url;
-        }
-
-        public void ClickOnPIMMenu()
-        {
-            _driver.FindElement(By.XPath("//span[text()='PIM']")).Click();
+            _driver.FindElement(By.Name("firstName")).SendKeys(firstname);
         }
     }
 }

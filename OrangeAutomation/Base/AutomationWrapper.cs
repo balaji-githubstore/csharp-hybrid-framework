@@ -29,13 +29,14 @@ namespace Fujitsu.OrangeAutomation.Base
         [OneTimeSetUp]
         public void Init()
         {
-        
-           if (extent == null) {
 
-                 projectPath = Directory.GetCurrentDirectory();
+            if (extent == null)
+            {
+
+                projectPath = Directory.GetCurrentDirectory();
                 projectPath = projectPath.Remove(projectPath.IndexOf("bin"));
 
-                ExtentHtmlReporter reporter = new ExtentHtmlReporter(projectPath+@"Reports\index.html");
+                ExtentHtmlReporter reporter = new ExtentHtmlReporter(projectPath + @"Reports\index.html");
                 extent = new ExtentReports();
                 extent.AttachReporter(reporter);
             }
@@ -46,7 +47,7 @@ namespace Fujitsu.OrangeAutomation.Base
         {
             extent.Flush();
         }
-        
+
         [SetUp]
         public void BeforeTest()
         {
@@ -55,12 +56,12 @@ namespace Fujitsu.OrangeAutomation.Base
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
 
             string browserName = "ch";
-            
-            if(browserName.ToLower().Equals("edge"))
+
+            if (browserName.ToLower().Equals("edge"))
             {
                 driver = new EdgeDriver();
             }
-            else if(browserName.ToLower().Equals("ff"))
+            else if (browserName.ToLower().Equals("ff"))
             {
                 driver = new FirefoxDriver();
             }
@@ -68,7 +69,7 @@ namespace Fujitsu.OrangeAutomation.Base
             {
                 driver = new ChromeDriver();
             }
-            
+
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/web/index.php/");
@@ -77,18 +78,18 @@ namespace Fujitsu.OrangeAutomation.Base
         [TearDown]
         public void AfterTest()
         {
-           string testName= TestContext.CurrentContext.Test.Name;
-           TestStatus testStatus= TestContext.CurrentContext.Result.Outcome.Status;
+            string testName = TestContext.CurrentContext.Test.Name;
+            TestStatus testStatus = TestContext.CurrentContext.Result.Outcome.Status;
 
-            if(testStatus==TestStatus.Failed)
+            if (testStatus == TestStatus.Failed)
             {
                 string stackTrace = TestContext.CurrentContext.Result.StackTrace;
                 string message = TestContext.CurrentContext.Result.Message;
 
 
-                test.Log(Status.Fail, "Failed "+stackTrace+"</pre>"+message);
+                test.Log(Status.Fail, "Failed " + stackTrace + "</pre>" + message);
             }
-            else if(testStatus==TestStatus.Passed)
+            else if (testStatus == TestStatus.Passed)
             {
                 test.Log(Status.Pass, "Passed - Snapshot Below");
             }
@@ -109,10 +110,10 @@ namespace Fujitsu.OrangeAutomation.Base
 
         public void SaveScreenShot(string screenshotName)
         {
-            screenshotName = screenshotName+"_" + DateTime.Now.ToString().Replace(":","-")+".png";
+            screenshotName = screenshotName + "_" + DateTime.Now.ToString().Replace(":", "-") + ".png";
 
             Screenshot screenshot = driver.TakeScreenshot();
-            screenshot.SaveAsFile(projectPath+ @"Screenshots\"+ screenshotName);
+            screenshot.SaveAsFile(projectPath + @"Screenshots\" + screenshotName);
         }
     }
 }

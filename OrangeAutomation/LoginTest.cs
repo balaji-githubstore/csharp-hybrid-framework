@@ -24,16 +24,19 @@ namespace Fujitsu.OrangeAutomation
         // [TestCase("Admin","admin123", "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")]
         public void ValidLoginTest(string username,string password,string expectedUrl)
         {
-            LoginPage.EnterUsername(driver, username);
-            LoginPage.EnterPassword(driver, password);
-            LoginPage.ClickOnLogin(driver);
+            LoginPage loginPage = new LoginPage(driver);
+
+            loginPage.EnterUsername(username);
+            loginPage.EnterPassword(password);
+            loginPage.ClickOnLogin();
 
             //wait for page load 
 
             //get the url and assert it
-            string actualUrl = driver.Url;
-            Assert.That(actualUrl,
-                Is.EqualTo(expectedUrl));
+            MainPage mainPage=new MainPage(driver);
+            string actualUrl = mainPage.GetMainPageURL();
+
+            Assert.That(actualUrl,Is.EqualTo(expectedUrl));
         }
 
         [Test, TestCaseSource(typeof(DataUtils), nameof(DataUtils.InvalidLoginData))]
@@ -42,11 +45,13 @@ namespace Fujitsu.OrangeAutomation
         //[TestCase("bala", "bala123", "Invalid credentials")]
         public void InvalidLoginTest(string username,string password,string expectedError)
         {
-            LoginPage.EnterUsername(driver, username);
-            LoginPage.EnterPassword(driver, password);
-            LoginPage.ClickOnLogin(driver);
+            LoginPage loginPage = new LoginPage(driver);
 
-            string actualError = driver.FindElement(By.XPath("//p[contains(@class,'oxd-alert')]")).Text;
+            loginPage.EnterUsername(username);
+            loginPage.EnterPassword(password);
+            loginPage.ClickOnLogin();
+
+            string actualError = loginPage.GetInvalidLoginErrorMessage();
             Assert.That(actualError, Is.EqualTo(expectedError));
         }
     }

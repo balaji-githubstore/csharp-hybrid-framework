@@ -1,12 +1,24 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrangeAutomation.Pages
+namespace Fujitsu.OrangeAutomation.Pages
 {
-    internal class MainPage
+    public class MainPage
     {
+        private IWebDriver _driver;
+
+        public MainPage(IWebDriver driver)
+        {
+            _driver = driver;
+        }
+
+        public string GetMainPageURL()
+        {
+            return _driver.Url;
+        }
     }
 }

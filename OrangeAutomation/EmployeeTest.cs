@@ -19,13 +19,15 @@ namespace Fujitsu.OrangeAutomation
         public void AddValidEmployeeTest(string username,string password,string firstname,string middlename,string lastname
             ,string expectedName)
         {
-            LoginPage.EnterUsername(driver, username);
+            LoginPage loginPage = new LoginPage(driver);
+
+            loginPage.EnterUsername(username);
             test.Log(Status.Info, "Enter Username: " + username);
 
-            LoginPage.EnterPassword(driver, password);
+            loginPage.EnterPassword(password);
             test.Log(Status.Info, "Enter Password: " + password);
 
-            LoginPage.ClickOnLogin(driver);
+            loginPage.ClickOnLogin();
             test.Log(Status.Info, "Clicked On login");
 
             driver.FindElement(By.XPath("//span[text()='PIM']")).Click();

@@ -11,20 +11,33 @@ namespace Fujitsu.OrangeAutomation.Pages
 {
     public class LoginPage
     {
+        private IWebDriver _driver;
 
-        public static void EnterUsername(IWebDriver driver,string username)
+        public LoginPage(IWebDriver driver)
         {
-            driver.FindElement(By.Name("username")).SendKeys(username);
+            this._driver=driver;
         }
 
-        public static void EnterPassword(IWebDriver driver, string password)
+
+        public void EnterUsername(string username)
         {
-            driver.FindElement(By.CssSelector("[name='password']")).SendKeys(password);
+            _driver.FindElement(By.Name("username")).SendKeys(username);
         }
 
-        public static void ClickOnLogin(IWebDriver driver)
+        public void EnterPassword(string password)
         {
-            driver.FindElement(By.XPath("//button[normalize-space()='Login']")).Click();
+            _driver.FindElement(By.CssSelector("[name='password']")).SendKeys(password);
         }
+
+        public void ClickOnLogin()
+        {
+            _driver.FindElement(By.XPath("//button[normalize-space()='Login']")).Click();
+        }
+
+        public string GetInvalidLoginErrorMessage()
+        {
+            return _driver.FindElement(By.XPath("//p[contains(@class,'oxd-alert')]")).Text;
+        }
+       
     }
 }

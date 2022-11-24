@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports;
 using Fujitsu.OrangeAutomation.Base;
+using Fujitsu.OrangeAutomation.Pages;
 using Fujitsu.OrangeAutomation.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -18,13 +19,13 @@ namespace Fujitsu.OrangeAutomation
         public void AddValidEmployeeTest(string username,string password,string firstname,string middlename,string lastname
             ,string expectedName)
         {
-            driver.FindElement(By.Name("username")).SendKeys(username);
+            LoginPage.EnterUsername(driver, username);
             test.Log(Status.Info, "Enter Username: " + username);
 
-            driver.FindElement(By.CssSelector("[name='password']")).SendKeys(password);
+            LoginPage.EnterPassword(driver, password);
             test.Log(Status.Info, "Enter Password: " + password);
 
-            driver.FindElement(By.XPath("//button[normalize-space()='Login']")).Click();
+            LoginPage.ClickOnLogin(driver);
             test.Log(Status.Info, "Clicked On login");
 
             driver.FindElement(By.XPath("//span[text()='PIM']")).Click();

@@ -1,4 +1,5 @@
 ﻿using Fujitsu.OrangeAutomation.Base;
+using Fujitsu.OrangeAutomation.Pages;
 using Fujitsu.OrangeAutomation.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -23,9 +24,9 @@ namespace Fujitsu.OrangeAutomation
         // [TestCase("Admin","admin123", "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")]
         public void ValidLoginTest(string username,string password,string expectedUrl)
         {
-            driver.FindElement(By.Name("username")).SendKeys(username);
-            driver.FindElement(By.CssSelector("[name='password']")).SendKeys(password);
-            driver.FindElement(By.XPath("//button[normalize-space()='Login']")).Click();
+            LoginPage.EnterUsername(driver, username);
+            LoginPage.EnterPassword(driver, password);
+            LoginPage.ClickOnLogin(driver);
 
             //wait for page load 
 
@@ -41,9 +42,9 @@ namespace Fujitsu.OrangeAutomation
         //[TestCase("bala", "bala123", "Invalid credentials")]
         public void InvalidLoginTest(string username,string password,string expectedError)
         {
-            driver.FindElement(By.Name("username")).SendKeys(username);
-            driver.FindElement(By.CssSelector("[name='password']")).SendKeys(password);
-            driver.FindElement(By.XPath("//button[normalize-space()='Login']")).Click();
+            LoginPage.EnterUsername(driver, username);
+            LoginPage.EnterPassword(driver, password);
+            LoginPage.ClickOnLogin(driver);
 
             string actualError = driver.FindElement(By.XPath("//p[contains(@class,'oxd-alert')]")).Text;
             Assert.That(actualError, Is.EqualTo(expectedError));

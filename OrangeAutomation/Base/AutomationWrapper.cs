@@ -13,6 +13,7 @@ using NUnit.Framework.Interfaces;
 using DocumentFormat.OpenXml.InkML;
 using System.Diagnostics;
 using OpenQA.Selenium.Support.Extensions;
+using System.Buffers.Text;
 
 namespace Fujitsu.OrangeAutomation.Base
 {
@@ -96,10 +97,11 @@ namespace Fujitsu.OrangeAutomation.Base
                 test.Log(Status.Skip, "MyFirstTestCasePassed");
             }
 
-            Screenshot screenshot = driver.TakeScreenshot();
-            string base64=screenshot.AsBase64EncodedString;
+            //Screenshot screenshot = driver.TakeScreenshot();
+            //string base64=screenshot.AsBase64EncodedString;
+            //test.AddScreenCaptureFromBase64String(base64);
 
-            test.AddScreenCaptureFromBase64String(base64);
+            test.AddScreenCaptureFromBase64String(driver.TakeScreenshot().AsBase64EncodedString);
 
             //SaveScreenShot(TestContext.CurrentContext.Test.MethodName);
             driver.Quit();

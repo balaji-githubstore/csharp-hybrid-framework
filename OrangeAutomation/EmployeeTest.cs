@@ -60,7 +60,7 @@ namespace Fujitsu.OrangeAutomation
             wait.IgnoreExceptionTypes(typeof(Exception));
             wait.Timeout = TimeSpan.FromSeconds(20);
 
-            //wait.Until(x => x.FindElement(By.XPath("//div[@class='orangehrm-edit-employee-name']//h6")).Text == "");
+            wait.Until(x => x.FindElement(By.XPath("//div[@class='orangehrm-edit-employee-name']//h6")).Text == "");
 
             string actualAddedName = driver.FindElement(By.XPath("//div[@class='orangehrm-edit-employee-name']//h6")).Text;
             test.Log(Status.Info, "Actual Name shown in the System: "+ actualAddedName);

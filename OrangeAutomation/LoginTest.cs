@@ -30,6 +30,8 @@ namespace Fujitsu.OrangeAutomation
             loginPage.EnterPassword(password);
             loginPage.ClickOnLogin();
 
+            //loginPage.SwitchToTabByTitle("Google");
+
             //wait for page load 
 
             //get the url and assert it

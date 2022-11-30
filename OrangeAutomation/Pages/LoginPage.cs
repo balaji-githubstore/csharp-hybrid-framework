@@ -35,6 +35,7 @@ namespace Fujitsu.OrangeAutomation.Pages
 
         public void ClickOnLogin()
         {
+            
             ClickByLocator(_loginLocator);
         }
 

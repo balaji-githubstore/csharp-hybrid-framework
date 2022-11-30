@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using ClosedXML.Excel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,15 @@ namespace OrangeAutomation
     /// </summary>
     public class DemoTest
     {
+
+        [Test]
+        public void ReadJson()
+        {
+            StreamReader reader = new StreamReader(@"C:\\automation_work\\HybridFrameworkSln\\OrangeAutomation\\TestData\\data.json");
+            dynamic json = JsonConvert.DeserializeObject(reader.ReadToEnd());
+            Console.WriteLine(json["browser"]);
+            Console.WriteLine(json["url"]);
+        }
 
         [Test]
         public void ExtentReportDemo()

@@ -1,6 +1,6 @@
-﻿using Fujitsu.OrangeAutomation.Base;
-using Fujitsu.OrangeAutomation.Pages;
+﻿using Fujitsu.OrangeAutomation.Pages;
 using Fujitsu.OrangeAutomation.Utilities;
+using Fujitsu.WebDriverKeywords.Base;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;

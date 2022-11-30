@@ -10,12 +10,13 @@ using OpenQA.Selenium.Firefox;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using NUnit.Framework.Interfaces;
-using DocumentFormat.OpenXml.InkML;
 using System.Diagnostics;
 using OpenQA.Selenium.Support.Extensions;
 using System.Buffers.Text;
+using NUnit.Framework;
+using Fujitsu.AutomationWrapperProject.Utilities;
 
-namespace Fujitsu.OrangeAutomation.Base
+namespace Fujitsu.WebDriverKeywords.Base
 {
     public class AutomationWrapper
     {
@@ -55,7 +56,9 @@ namespace Fujitsu.OrangeAutomation.Base
             //  test = extent.CreateTest(TestContext.CurrentContext.Test.ClassName+"."+ TestContext.CurrentContext.Test.Name);
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
 
-            string browserName = "ch";
+            string browserName = JsonUtils.GetValue(projectPath+@"TestData\data.json", "browser");
+
+
 
             if (browserName.ToLower().Equals("edge"))
             {
@@ -72,7 +75,9 @@ namespace Fujitsu.OrangeAutomation.Base
 
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-            driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/web/index.php/");
+            string baseUrl = JsonUtils.GetValue(projectPath + @"TestData\data.json", "url");
+
+            driver.Navigate().GoToUrl(baseUrl);
         }
 
         [TearDown]

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Fujitsu.OrangeAutomation.Base;
+using Fujitsu.WebDriverKeywords.Base;
 using OpenQA.Selenium.Edge;
 using Fujitsu.OrangeAutomation.Pages;
 
